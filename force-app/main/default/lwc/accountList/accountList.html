@@ -1,0 +1,54 @@
+<template>
+
+        <template for:each={accounts.data} for:item="account">
+            <lightning-card title="Account Detail" key={account.Id} class="slds-m-around_x-small" icon-name="standard:accounts">
+                <div class="flex-container">
+
+                    <div class="flex-child">
+                        <p>{account.Name}</p>
+                        <p>{account.AnnualRevenue}</p>
+                    </div>
+                
+                    <div class="flex-child">
+                        <lightning-button class="slds-button slds-button_destructive" label="Delete" variant="Destructive"
+                        value={account.Id} data-name={account.Name} data-id={account.Id} onclick={handleModal}></lightning-button> 
+                    </div>
+                
+              </div>
+               
+            </lightning-card>
+        </template>
+
+        <template if:true={isModalOpen}>
+            <!-- Modal/Popup Box LWC starts here -->
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+                aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <!-- Modal/Popup Box LWC header here -->
+                    <header class="slds-modal__header">
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close"
+                            onclick={closeModal}>
+                            <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse" size="small">
+                            </lightning-icon>
+                            <span class="slds-assistive-text">Close</span>
+                        </button>
+                        <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">{accName}
+                        </h2>
+                    </header>
+                    <!-- Modal/Popup Box LWC body starts here -->
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                        
+                        <p><b>Are you sure you want to delete {accName} account record ? 
+                            </b></p>
+                    </div>
+                   
+                    <div class="slds-modal__footer">
+                        <button class="slds-button slds-button_neutral" onclick={closeModal} title="Cancel">Cancel</button>
+                        <button class="slds-button slds-button_brand" onclick={deleteAccount} value={accId} title="Delete">Delete</button>
+                    </div>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </template>
+            
+</template>
